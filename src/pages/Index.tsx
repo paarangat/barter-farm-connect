@@ -1,11 +1,11 @@
-
 import { ArrowRight, Repeat, Heart, ShoppingBag } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 flex flex-col">
       <Navbar />
       
       {/* Hero Section */}
@@ -94,6 +94,8 @@ const Index = () => {
           </p>
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 };
