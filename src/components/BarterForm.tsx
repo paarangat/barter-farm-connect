@@ -6,7 +6,18 @@ import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 import { toast } from "sonner";
 
-const BarterForm = () => {
+interface BarterFormProps {
+  onSubmit: (formData: {
+    equipmentName: string;
+    description: string;
+    condition: string;
+    expectedValue: string;
+    location: string;
+    contactInfo: string;
+  }) => void;
+}
+
+const BarterForm = ({ onSubmit }: BarterFormProps) => {
   const [formData, setFormData] = useState({
     equipmentName: "",
     description: "",
@@ -21,6 +32,11 @@ const BarterForm = () => {
     // In a real application, this would connect to a backend
     console.log("Barter form submitted:", formData);
     toast.success("Equipment listed successfully!");
+    
+    // Call the onSubmit prop with the form data
+    onSubmit(formData);
+    
+    // Reset the form
     setFormData({
       equipmentName: "",
       description: "",

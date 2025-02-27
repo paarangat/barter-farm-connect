@@ -1,15 +1,35 @@
 
+import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import SellForm from "@/components/SellForm";
 
 const Sell = () => {
-  // Sample crop listings data
-  const cropListings = [
+  // Sample crop listings data with initial values
+  const [cropListings, setCropListings] = useState([
     { id: 1, name: "Organic Rice", quantity: "500 kg", price: "₹45/kg", seller: "Ramesh Patel" },
     { id: 2, name: "Fresh Wheat", quantity: "1 tonne", price: "₹30/kg", seller: "Sunil Kumar" },
     { id: 3, name: "Cotton", quantity: "200 kg", price: "₹70/kg", seller: "Priya Singh" },
     { id: 4, name: "Sugarcane", quantity: "2 tonnes", price: "₹25/kg", seller: "Vijay Sharma" },
-  ];
+  ]);
+
+  // Function to add new crop to the list
+  const addCrop = (crop: {
+    cropName: string;
+    quantity: string;
+    price: string;
+    contactInfo: string;
+    [key: string]: string;
+  }) => {
+    const newCrop = {
+      id: cropListings.length + 1,
+      name: crop.cropName,
+      quantity: crop.quantity,
+      price: `₹${crop.price}/kg`,
+      seller: crop.contactInfo,
+    };
+    
+    setCropListings([...cropListings, newCrop]);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
@@ -27,7 +47,7 @@ const Sell = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h2 className="text-xl font-semibold mb-4">List Your Crop</h2>
-            <SellForm />
+            <SellForm onSubmit={addCrop} />
           </div>
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h2 className="text-xl font-semibold mb-4">Available Crops</h2>

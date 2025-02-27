@@ -6,7 +6,18 @@ import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 import { toast } from "sonner";
 
-const SellForm = () => {
+interface SellFormProps {
+  onSubmit: (formData: {
+    cropName: string;
+    quantity: string;
+    price: string;
+    description: string;
+    location: string;
+    contactInfo: string;
+  }) => void;
+}
+
+const SellForm = ({ onSubmit }: SellFormProps) => {
   const [formData, setFormData] = useState({
     cropName: "",
     quantity: "",
@@ -21,6 +32,11 @@ const SellForm = () => {
     // In a real application, this would connect to a backend
     console.log("Sell form submitted:", formData);
     toast.success("Crop listed successfully!");
+    
+    // Call the onSubmit prop with the form data
+    onSubmit(formData);
+    
+    // Reset the form
     setFormData({
       cropName: "",
       quantity: "",
