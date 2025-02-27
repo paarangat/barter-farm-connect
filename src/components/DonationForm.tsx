@@ -6,7 +6,11 @@ import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 import { toast } from "sonner";
 
-const DonationForm = () => {
+interface DonationFormProps {
+  onDonate?: (amount: number) => void;
+}
+
+const DonationForm = ({ onDonate }: DonationFormProps) => {
   const [formData, setFormData] = useState({
     fullName: "",
     amount: "",
@@ -20,6 +24,12 @@ const DonationForm = () => {
     // In a real application, this would connect to a payment gateway
     console.log("Donation form submitted:", formData);
     toast.success("Thank you for your donation!");
+    
+    // Update the donation total
+    if (onDonate && formData.amount) {
+      onDonate(Number(formData.amount));
+    }
+    
     setFormData({
       fullName: "",
       amount: "",
